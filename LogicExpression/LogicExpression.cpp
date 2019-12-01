@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <_Expression.h>
 #include <_File.h>
+#include <random>
 
 using namespace Expression;
 struct LogicOprand :Oprand<bool>
@@ -63,17 +64,39 @@ struct LogicOperator :Operator<bool>
 };
 Node<bool, LogicOprand, LogicOperator>* Build(String<char> const& str)
 {
-	//...
-	return nullptr;
+	if (str.length == 0)return nullptr;
+
+
 }
 int main()
 {
 	File file("./");
-	file.find("a.txt").readText().print();
+	String<char> str(file.find("a.txt").readText());
+	Vector<int> p(str.find("aba"));
+	str.truncate({ 2,4 }).print();
+	//str.findAndDelete("aba");
+	//Vector<int> pos0(str.find("("));
+	//Vector<int> pos1(str.find(")"));
+	p.traverse([](const int& a) {::printf("%d ", a); return true; });
+	::printf("\n");
+	//pos1.traverse([](const int& a) {::printf("%d ", a); return true; });
+	//::printf("\n");
+
+	Interval<unsigned int> sa(1, 4), sb(2, 5);
+	sa.print();
+	(sa ^= sb).print();
+	::printf("%d\n", sa.hasIntersectionWith(sb));
+
+
+	IntervalSet<unsigned int>set(Vector<int>({ 2,1,6,7,10 }), 2);
+	set.print();
+	set.simplify().print();
+	::printf("%d\n", set.area(false));
+
 	bool A(false), B(true);
-	Node<bool, LogicOprand, LogicOperator> n('^'), nl(&A), nr(&B);
+	/*Node<bool, LogicOprand, LogicOperator> n('^'), nl(&A), nr(&B);
 	n.left = &nl;
 	n.right = &nr;
 
-	::printf("%d", n()());
+	::printf("%d", n()());*/
 }
