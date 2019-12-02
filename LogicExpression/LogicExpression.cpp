@@ -72,26 +72,36 @@ int main()
 {
 	File file("./");
 	String<char> str(file.find("a.txt").readText());
-	Vector<int> p(str.find("aba"));
-	str.truncate({ 2,4 }).print();
+	//Vector<int> p(str.find("aba"));
+	//str.truncate({ 2,4 }).print();
 	//str.findAndDelete("aba");
 	//Vector<int> pos0(str.find("("));
 	//Vector<int> pos1(str.find(")"));
-	p.traverse([](const int& a) {::printf("%d ", a); return true; });
-	::printf("\n");
+	//p.traverse([](const int& a) {::printf("%d ", a); return true; });
+	//::printf("\n");
 	//pos1.traverse([](const int& a) {::printf("%d ", a); return true; });
 	//::printf("\n");
 
-	Interval<unsigned int> sa(1, 4), sb(2, 5);
-	sa.print();
-	(sa ^= sb).print();
-	::printf("%d\n", sa.hasIntersectionWith(sb));
+	Interval<unsigned int> itvl_a(1, 4), itvl_b(2, 5);
+	itvl_a.print("itvl_a: ","\n");
+	itvl_b.print("itvl_b: ","\n");
+	(itvl_a ^= itvl_b).print("itvl_a ^ itvl_b ", "\n");
+	::printf("itvl_a.hasItW(itvl_b): %d\n", itvl_a.hasIntersectionWith(itvl_b));
 
 
-	IntervalSet<unsigned int>set(Vector<int>({ 2,1,6,7,10 }), 2);
-	set.print();
-	set.simplify().print();
-	::printf("%d\n", set.area(true));
+	IntervalSet<unsigned int>set(Vector<int>({ 2,1,6,7,10 }), 2, true);
+	set.print("set: ");
+	set.simplify().print("set.simplify(): ");
+	::printf("set.area(): %d\n", set.area(true));
+	(set ^ Interval<unsigned int>(1, 6)).print("set ^ [1, 6]: ");
+	//(Interval<unsigned int>(1, 6) ^ set).print();
+	(set ^= {1, 2}).print("set ^= [1, 2]: ");
+
+	Vector<int>vec({ 1, 2, 3, 4, 5 });
+	Vector<int>vectr(vec.truncate( 0, 4 ));
+	vec.truncateSelf(0, 5);
+	vec.traverse([](int const& a) {::printf("%d ", a); return true; });
+	vectr.traverse([](int const& a) {::printf("%d ", a); return true; });
 
 	bool A(false), B(true);
 	/*Node<bool, LogicOprand, LogicOperator> n('^'), nl(&A), nr(&B);
