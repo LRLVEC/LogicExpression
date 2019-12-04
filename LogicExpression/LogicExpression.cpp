@@ -93,19 +93,33 @@ int main()
 	::printf("itvl_a.hasItW(itvl_b): %d\n", itvl_a.hasIntersectionWith(itvl_b));
 
 
-	IntervalSet<unsigned int>set(Vector<int>({ 2,1,6,7,10 }), 2, true);
-	set.print("set: ");
-	set.simplify().print("set.simplify(): ");
-	::printf("set.area(): %d\n", set.area(true));
-	(set ^ Interval<unsigned int>(1, 6)).print("set ^ [1, 6]: ");
+	IntervalSet<int>set_0(Vector<int>({ 2,1,6,7,10,16,19 }), 2, true);
+	IntervalSet<int>set_1(Vector<int>({ 3,5,6,2 }), 1, true);
+
+	str.print("str: ", "\n");
+	str.truncate(set_0).print("str.truncate(set_0): ", "\n");
+	str.truncateSelf(set_0).print("str.truncateSelf(set_0): ", "\n");
+
+
+	set_0.print("set_0: ");
+	set_0.simplify().print("set_0.simplify(): ");
+	set_1.print("set_1: ");
+	(set_0 ^= set_1).print("set_0 ^= set_1: ");
+	::printf("set_0.area(true): %d\n", set_0.area(true));
+	(set_0 ^ Interval<int>(1, 6)).print("set_0 ^ [1, 6]: ");
 	//(Interval<unsigned int>(1, 6) ^ set).print();
-	(set ^= {1, 2}).print("set ^= [1, 2]: ");
+	(set_0 ^= {1, 2}).print("set_0 ^= [1, 2]: ");
 
 	Vector<int>vec({ 1, 2, 3, 4, 5 });
 	Vector<int>vectr(vec.truncate(0, 4));
-	vec.truncateSelf(0, 5);
-	vec.traverse([](int const& a) {::printf("%d ", a); return true; });
-	vectr.traverse([](int const& a) {::printf("%d ", a); return true; });
+	Vector<int>vectrs(vec.truncate(set_1));
+	//vec.truncateSelf(0, 5);
+	::printf("vec: ");
+	vec.traverse([](int const& a) {::printf("%d ", a); return true; }); ::printf("\n");
+	::printf("vec.truncate: ");
+	vectr.traverse([](int const& a) {::printf("%d ", a); return true; }); ::printf("\n");
+	::printf("vec.truncateSelf(set_1): ");
+	vectrs.traverse([](int const& a) {::printf("%d ", a); return true; }); ::printf("\n");
 
 	bool A(false), B(true);
 	/*Node<bool, LogicOprand, LogicOperator> n('^'), nl(&A), nr(&B);
