@@ -89,6 +89,8 @@ int main()
 	Interval<unsigned int> itvl_a(1, 4), itvl_b(2, 5);
 	itvl_a.print("itvl_a: ", "\n");
 	itvl_b.print("itvl_b: ", "\n");
+	itvl_a.move(2).print("itvl_a.move(2)", "\n");
+	itvl_a.moveSelf(3).print("itvl_a.moveSelf(3)", "\n");
 	(itvl_a ^= itvl_b).print("itvl_a ^ itvl_b ", "\n");
 	::printf("itvl_a.hasItW(itvl_b): %d\n", itvl_a.hasIntersectionWith(itvl_b));
 
@@ -103,6 +105,7 @@ int main()
 
 	set_0.print("set_0: ");
 	set_0.simplify().print("set_0.simplify(): ");
+	set_0.move(2).print("set_0.moveSelf(2): ");
 	set_1.print("set_1: ");
 	(set_0 ^= set_1).print("set_0 ^= set_1: ");
 	::printf("set_0.area(true): %d\n", set_0.area(true));
